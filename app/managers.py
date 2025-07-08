@@ -3,8 +3,13 @@ import sqlite3
 from app.models import Actor
 
 
+allowed_tables = ["actors", "actor"]
+
+
 class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
+        if table_name not in allowed_tables:
+            raise ValueError("Invalid table name")
         self.db_name = db_name
         self.table_name = table_name
         self._connection = sqlite3.connect(self.db_name)
